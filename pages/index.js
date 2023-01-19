@@ -36,16 +36,17 @@ const callGenerateEndpoint = async () => {
       <div className="container">
         <div className="header">
           <div className="header-title">
-            <h1>Khutbah Generator</h1>
+            <h1>ItinerarAI</h1>
           </div>
           <div className="header-subtitle">
-            <h2>Input a topic and we'll generate a khutbah based on it </h2>
+            <h2>Tell us where you're going and we'll help you plan your trip. 
+                 Include details for more personalized recommendations. </h2>
           </div>
         </div>
         {/* Add this code here*/}
         <div className="prompt-container">
   <textarea
-    placeholder="Example: Preparing for Ramadan"
+    placeholder="Example: I'm going to Seattle for a weekend with my friends and we like nature activities"
     className="prompt-box"
     value={userInput}
     onChange={onUserChangedText}

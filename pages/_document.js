@@ -4,8 +4,8 @@ export default function Document() {
   return (
     <Html>
       <Head>
-        <meta property="og:title" content="Khutbah Generator" key="title"/>
-        <meta property="og:description" content="Generate a Khutbah" key="description"/>
+        <meta property="og:title" content="ItinerarAI" key="title"/>
+        <meta property="og:description" content="Generate an Itinerary" key="description"/>
         <meta
           property="og:image"
           content="https://imgur.com/QhaMRdB"

@@ -5,8 +5,9 @@ const configuration = new Configuration({
 });
 
 const openai = new OpenAIApi(configuration);
-const basePromptPrefix = `Write me an Islamic Khutbah with an opening, body and closing. Please make sure the khutbah references at least one ayah from the Quran and one hadith from the Prophet Mohammed and includes some actions we can take to implement the khutbah in our lives. 
-Title:
+const basePromptPrefix = `Give me some recommendations for fun activities to do on my trip using the trip details below. Provide recommendations based on the most popular things to do in my trip location.  
+
+Trip Details: 
 `;
 const generateAction = async (req, res) => {
   // Run first prompt
@@ -21,7 +22,32 @@ const generateAction = async (req, res) => {
   
   const basePromptOutput = baseCompletion.data.choices.pop();
 
-  res.status(200).json({ output: basePromptOutput });
+  const secondPrompt = 
+  `
+
+Take the trip details and select a few of the recommendations and create a short itenirary which includes days and a schedule. Arrange the schedule by locations that are close to each other.
+
+Trip details: ${req.body.userInput}
+
+Recommendations: ${basePromptOutput.text}
+
+Itinerary: 
+  `
+  
+  // I call the OpenAI API a second time with Prompt #2
+  const secondPromptCompletion = await openai.createCompletion({
+    model: 'text-davinci-003',
+    prompt: `${secondPrompt}`,
+    // I set a higher temperature for this one. Up to you!
+    temperature: 0.85,
+		// I also increase max_tokens.
+    max_tokens: 1250,
+  });
+
+  const secondPromptOutput = secondPromptCompletion.data.choices.pop();
+
+  // Send over the Prompt #2's output to our UI instead of Prompt #1's.
+  res.status(200).json({ output: secondPromptOutput });
 };
 
 export default generateAction;
